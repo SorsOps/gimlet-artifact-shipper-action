@@ -20,8 +20,8 @@ export GITHUB_BRANCH=$BRANCH
 # TODO check if head sha is better suited for the workflows: https://github.community/t/github-sha-isnt-the-value-expected/17903/2
 
 EVENT="push"
-SHA=$GITHUB_SHA
-URL="https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+SHA=${INPUT_SHA:-$GITHUB_SHA}  # Changed to use input SHA if provided, fallback to GITHUB_SHA
+URL="https://github.com/$GITHUB_REPOSITORY/commit/$SHA"  # Updated to use the SHA variable
 if [[ -n "$GITHUB_BASE_REF" ]];
 then
     EVENT="pr"
@@ -102,7 +102,7 @@ gimlet artifact add \
 --var "OWNER=$GITHUB_REPOSITORY_OWNER" \
 --var "BRANCH=$BRANCH" \
 --var "TAG=$TAG" \
---var "SHA=$GITHUB_SHA" \
+--var "SHA=$SHA" \
 --var "ACTOR=$GITHUB_ACTOR" \
 --var "EVENT=$GITHUB_EVENT_NAME" \
 --var "JOB=$GITHUB_JOB"

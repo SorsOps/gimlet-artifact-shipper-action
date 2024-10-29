@@ -17,6 +17,10 @@ inputs:
     description: 'Set it to true if you want to watch tracking the artifact and wait until got success or error'
     required: false
     default: "false"
+  sha:
+    description: 'The github sha to use. Defaults to the $GITHUB_SHA'
+    required: false
+    default: ''
   timeout:
     description: 'Set the time for wait flag of artifact track'
     required: false
